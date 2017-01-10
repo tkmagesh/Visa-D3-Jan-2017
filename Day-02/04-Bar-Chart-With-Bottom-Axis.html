@@ -33,7 +33,9 @@
         //var axis = d3.svg.axis().scale(scale);
         var axisNodes = axisGroup.call(axis);
         //style
-        
+        console.dir(axisNodes);
+        console.dir(axisGroup);
+
         var domain = axisNodes.selectAll('.domain');
         domain.attrs({
             fill: 'none',
