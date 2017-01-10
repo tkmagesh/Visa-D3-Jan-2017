@@ -38,13 +38,17 @@
                 height: function(d) { return d; }
             });
 
-        var textTranslator = "translate(" + barWidth / 2 + ",0)";
+        //var textTranslator = "translate(" + barWidth / 2 + ",0)";
+        var textTranslator = function(d,i){
+            return "translate(" + barWidth / 2 + "," + (d - 12) + ")";
+        }
 
         barGroups.append('text')
             .text(function(d) { return d; })
             .attrs({
                 fill: 'white',
                 'alignment-baseline': 'before-edge',
+                
                 'text-anchor': 'middle',
                 transform: textTranslator
             })
