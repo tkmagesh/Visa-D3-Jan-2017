@@ -8,9 +8,23 @@
 </head>
 <body>
     <script>
-        var data = [55, 44, 30, 23, 17, 14, 16, 25, 41, 61, 85,
+        var products = [
+            {id : 4, name : 'Pen', cost : 55},
+            {id : 7, name : 'Hen', cost : 44},
+            {id : 3, name : 'Den', cost : 30},
+            {id : 9, name : 'Len', cost : 23},
+            {id : 5, name : 'Ken', cost : 17},
+            {id : 4, name : 'Ten', cost : 14},
+            {id : 6, name : 'Zen', cost : 16},
+            {id : 1, name : 'Chen', cost : 25},
+        ];
+        
+        var data = products.map(function(product){
+            return product.cost;
+        });
+       /* var data = [55, 44, 30, 23, 17, 14, 16, 25, 41, 61, 85,
                     101, 95, 105, 114, 150, 180, 210, 125, 100, 71,
-                    75, 72, 67];
+                    75, 72, 67];*/
 
         var barWidth = 20, barPadding = 3;
         var maxValue = d3.max(data);
@@ -20,7 +34,9 @@
             .attrs({ width: 1000, height: 250 })
             .append('g');
 
-        function xloc(d, i) { return i * (barWidth + barPadding); }
+        function xloc(d, i) { 
+            console.log(arguments);
+            return i * (barWidth + barPadding); }
         function yloc(d) { return maxValue - d; }
         function translator(d, i) {
             return "translate(" + xloc(d, i) + "," + yloc(d) + ")";
