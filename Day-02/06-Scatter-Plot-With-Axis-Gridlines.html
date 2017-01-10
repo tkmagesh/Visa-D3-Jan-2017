@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+</head>
+<body>
+     <script src="d3.js"></script>
+    <script src="d3-selection-multi.js"></script>
+    
+    <script>
+        var url = "corr_aapl_msft.csv";
+        d3.csv(url, function (error, rawData) {
+            var data = rawData.map(function (d) {
+                return { X: +d.AAPL, Y: +d.MSFT }
+            });
+
+            var xExtents = d3.extent(data, function (d) { return d.X; });
+            var yExtents = d3.extent(data, function (d) { return d.Y; });
+
+            var maxExtent = d3.max(
+                xExtents.concat(yExtents), function (d) { return Math.abs(d); });
+
+            var graphWidth = 400, graphHeight = 400;
+            var radius = 5;
+            var margins = { left: 50, top: 50, right: 50, bottom: 50 };
+            var axisPadding = 3;
+
+            var totalHeight = graphHeight + margins.top + margins.bottom;
+            var totalWidth = graphWidth + margins.left + margins.right;
+
+            var scale = d3.scaleLinear()
+                .domain([-maxExtent, maxExtent])
+                .range([0, graphWidth]);
+
+            var svg = d3.select('body')
+                .append('svg')
+                .attr('width', totalWidth)
+                .attr('height', totalHeight);
+
+            var yGridlinesAxis = d3.axisLeft().scale(scale);
+            var yGridlineNodes = svg.append('g')
+                .attr('transform', 'translate(' + (margins.left + graphWidth) + ',' + margins.top + ')')
+                .call(yGridlinesAxis.tickSize(graphWidth + axisPadding, 0, 0).tickFormat(""));
+            styleGridlineNodes(yGridlineNodes);
+
+            var xGridlinesAxis = d3.axisBottom().scale(scale);
+            var xGridlineNodes = svg.append('g')
+                .attr('transform', 'translate(' + margins.left + ',' + (totalHeight - margins.bottom + axisPadding) + ')')
+                .call(xGridlinesAxis.tickSize(-graphWidth - axisPadding, 0, 0).tickFormat(""));
+            styleGridlineNodes(xGridlineNodes);
+
+            var xAxis = d3.axisBottom().scale(scale);
+            var yAxis = d3.axisLeft().scale(scale);
+
+            var yAxisNodes = svg.append('g')
+              .attr('transform', 'translate(' + (margins.left - axisPadding) + ',' + margins.top + ')')
+              .call(yAxis);//.attr("class", "x axis");
+            styleAxisNodes(yAxisNodes);
+
+            var xAxisNodes = svg.append('g')
+                .attr('transform', 'translate(' + margins.left + ',' + (totalHeight - margins.bottom + axisPadding) + ')')
+                .call(xAxis);
+            styleAxisNodes(xAxisNodes);
+
+            var graphGroup = svg.append('g')
+                  .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
+
+            graphGroup.selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                .attrs({
+                    cx: function (d) { return scale(d.X); },
+                    cy: function (d) { return scale(d.Y); },
+                    r: radius,
+                    fill: 'none',
+                    stroke: 'steelblue'
+                });
+
+        });
+
+        function styleGridlineNodes(axisNodes) {
+            axisNodes.selectAll('.domain')
+                .attrs({
+                    fill: 'none',
+                    stroke: 'none'
+                });
+            axisNodes.selectAll('.tick line')
+                .attrs({
+                    fill: 'none',
+                    'stroke-width': 1,
+                    stroke: 'lightgray'
+                });
+        }
+
+        function styleAxisNodes(axisNodes) {
+            axisNodes.selectAll('.domain')
+                .attrs({
+                    fill: 'none',
+                    'stroke-width': 1,
+                    stroke: 'black'
+                });
+            axisNodes.selectAll('.tick line')
+                .attrs({
+                    fill: 'none',
+                    'stroke-width': 1,
+                    stroke: 'black'
+                });
+        }
+    </script>
+</body>
+</html>

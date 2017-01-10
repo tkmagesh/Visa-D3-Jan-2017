@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+</head>
+
+<body>
+     <script src="d3.js"></script>
+    <script src="d3-selection-multi.js"></script>
+    <script>
+        var group = d3.select('body')
+            .append('svg')
+            .attrs({
+                width: 225,
+                height: 225
+            })
+            .append('g')
+            .attr('transform', 'translate(105, 105)');
+
+        var data = [21, 32, 35, 64, 83];
+        var pieSegments = d3.pie()(data);
+
+        var arcGenerator = d3.arc()
+            .innerRadius(0)
+            .outerRadius(100)
+            .startAngle(function (d) {
+                return d.startAngle;
+            })
+            .endAngle(function (d) {
+                return d.endAngle;
+            });
+
+        var colors = d3.schemeCategory10;
+        group.selectAll('path')
+            .data(pieSegments)
+            .enter()
+            .append('path')
+            .attrs({
+                d: arcGenerator,
+                fill: function (d, i) {
+                    return colors[i];
+                }
+            });
+
+    </script>
+</body>
+</html>

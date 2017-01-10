@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+     <script src="d3.js"></script>
+    <script src="d3-selection-multi.js"></script>
+    <script>
+        var url = "country_stats.csv";
+        d3.csv(url, function (error, rawData) {
+            var data = rawData.map(function (d) {
+                return {
+                    CountryCode: d.CountryCode,
+                    CountryName: d.CountryName,
+                    LifeExp: +d.LifeExp,
+                    FertRate: +d.FertRate,
+                    Population: +d.Population,
+                    Region: d.Region
+                }
+            });
+
+            var minBubbleSize = 5, maxBubbleSize = 50;
+            var margin = {
+                left: maxBubbleSize, top: maxBubbleSize,
+                bottom: maxBubbleSize, right: maxBubbleSize
+            };
+            var axisPadding = 10;
+            var graphWidth = 500, graphHeight = 400;
+            var totalWidth = graphWidth + margin.left + margin.right;
+            var totalHeight = graphHeight + margin.top + margin.bottom;
+
+
+            var lifeExpectancy = data.map(function (d) { return d.LifeExp; });
+            var fertilityRate = data.map(function (d) { return d.FertRate; });
+            var population = data.map(function (d) { return d.Population; });
+            var regions = data.map(function (d) { return d.Region; });
+
+            var xScale = d3.scaleLinear()
+                .domain([d3.min(lifeExpectancy), d3.max(lifeExpectancy)])
+                .range([0, graphWidth]);
+
+            var yScale = d3.scaleLinear()
+                .domain([d3.max(fertilityRate), 0])
+                .range([0, graphHeight]);
+
+            var popDomain = [d3.min(population), d3.max(population)];
+            var popScale = d3.scaleLinear()
+                .domain(popDomain)
+                .range([minBubbleSize, maxBubbleSize]);
+
+            var uniqueRegions = d3.set(regions).values();
+            var regionColorMap = d3.scaleOrdinal()
+                .domain(uniqueRegions)
+                .range(d3.schemeCategory10);
+
+            var svg = d3.select("body").append('svg')
+                .attr('width', totalWidth)
+                .attr('height', totalHeight);
+
+
+            var yAxis = d3.axisLeft().scale(yScale);
+            var yAxisNodes = svg.append('g')
+                .attr('transform', 'translate(' + (margin.left - axisPadding) + ',' + margin.top + ')')
+                .call(yAxis);
+            styleAxisNodes(yAxisNodes);
+            var xAxis = d3.axisBottom().scale(xScale);
+            var xAxisNodes = svg.append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + (totalHeight - margin.bottom + axisPadding) + ')')
+                .call(xAxis);
+            styleAxisNodes(xAxisNodes);
+
+            svg.append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+                .selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                .each(function (d) {
+                    d3.select(this).attrs({
+                        cx: xScale(d.LifeExp),
+                        cy: yScale(d.FertRate),
+                        r: popScale(d.Population),
+                        fill: regionColorMap(d.Region),
+                        stroke: regionColorMap(d.Region),
+                        'fill-opacity': 0.5
+                    });
+                });
+        });
+        function styleAxisNodes(axisNodes) {
+            axisNodes.selectAll('.domain')
+                .attrs({
+                    fill: 'none',
+                    'stroke-width': 1,
+                    stroke: 'black'
+                });
+            axisNodes.selectAll('.tick line')
+                .attrs({
+                    fill: 'none',
+                    'stroke-width': 1,
+                    stroke: 'black'
+                });
+        }
+    </script>
+</body>
+</html>

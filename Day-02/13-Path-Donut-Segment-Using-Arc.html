@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+</head>
+
+<body>
+     <script src="d3.js"></script>
+    <script src="d3-selection-multi.js"></script>
+    <script>
+        svg = d3.select('body')
+            .append('svg');
+
+        var generator = d3.arc()
+            .innerRadius(40)
+            .outerRadius(60)
+            .startAngle(45 * Math.PI * 2 / 360)
+            .endAngle(105 * Math.PI * 2 / 360);
+
+        svg.append('path')
+            .attrs({
+                d: generator,
+                transform: 'translate(65, 65)',
+                fill: 'cyan',
+                stroke: 'black'
+            });
+    </script>
+</body>
+</html>
