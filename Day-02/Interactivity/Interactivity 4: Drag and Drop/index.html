@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+</head>
+
+<body>
+     <script src="d3.js"></script>
+    <script src="d3-selection-multi.js"></script>
+    <script>
+        var width = 450, height = 450, radius = 50;
+        var svg = d3.select('body')
+            .append('svg')
+            .attrs({
+                width: width,
+                height: height
+            });
+
+        var data = [
+            [width / 2 - radius, height / 2 - radius],
+            [width / 2 - radius, height / 2 + radius],
+            [width / 2 + radius, height / 2 - radius],
+            [width / 2 + radius, height / 2 + radius]];
+
+        var colors = d3.schemeCategory10;
+
+        var circles = svg.selectAll('circle')
+            .data(data)
+        .enter()
+        .append('circle')
+        .attrs({
+            r: radius,
+            fill: function(d,i){ console.log(arguments); return colors[i]},
+            transform: function (d) { return 'translate(' + d + ')' }
+        });
+
+        var dragBehavior = d3.drag()
+            .on('drag', onDrag);
+        circles.call(dragBehavior);
+
+        function onDrag(d) {
+            var x = d3.event.x,
+                y = d3.event.y;
+            if ((x >= radius) && (x <= width - radius) &&
+                (y >= radius) && (y <= height - radius)) {
+                d3.select(this)
+                    .attr('transform', function () {
+                        return 'translate(' + x + ', ' + y + ')';
+                    });
+            }
+        }
+    </script>
+</body>
+</html>

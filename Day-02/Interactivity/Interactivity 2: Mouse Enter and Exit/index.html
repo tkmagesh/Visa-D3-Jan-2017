@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+</head>
+
+<body>
+     <script src="d3.js"></script>
+    <script src="d3-selection-multi.js"></script>
+<script>
+var svg = d3.select('body').append('svg')
+            .attrs({ 'width': 600, 'height': 600 });
+var data = [30, 20, 40], x = 0;
+
+svg.selectAll('circle')
+    .data(data)
+    .enter()
+    .append('circle')
+    .attr('fill', 'steelblue')
+    .each(function(d, i) {
+        d3.select(this).attrs({
+            cx: x += (d + 5),
+            cy: 40,
+            r: d / 2
+        });
+    })
+    .on('mouseenter', function() {
+        d3.select(this).attr('fill', 'red');
+    })
+    .on('mouseout', function() {
+        d3.select(this).attr('fill', 'steelblue');
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+CountryCode,CountryName,LifeExp,FertRate,Population,Region
+ABW,Aruba,75.33217073,1.673,102911,Latin America & Caribbean
+ARG,Argentina,76.18729268,2.175,41446246,Latin America & Caribbean
+ATG,Antigua and Barbuda,75.82929268,2.089,89985,Latin America & Caribbean
+BHS,"Bahamas, The",75.07256098,1.888,377374,Latin America & Caribbean
+BLZ,Belize,73.90487805,2.676,331900,Latin America & Caribbean
+BOL,Bolivia,67.21736585,3.221,10671200,Latin America & Caribbean
+BRA,Brazil,73.88595122,1.801,200361925,Latin America & Caribbean
+BRB,Barbados,75.29641463,1.849,284644,Latin America & Caribbean
+CHL,Chile,79.83680488,1.82,17619708,Latin America & Caribbean
+COL,Colombia,73.97882927,2.286,48321405,Latin America & Caribbean
+CRI,Costa Rica,79.921,1.795,4872166,Latin America & Caribbean
+CUB,Cuba,79.23926829,1.449,11265629,Latin America & Caribbean
+DOM,Dominican Republic,73.45095122,2.484,10403761,Latin America & Caribbean
+ECU,Ecuador,76.46507317,2.559,15737878,Latin America & Caribbean
+GRD,Grenada,72.74134146,2.17,105897,Latin America & Caribbean
+GTM,Guatemala,71.99282927,3.783,15468203,Latin America & Caribbean
+GUY,Guyana,66.20790244,2.546,799613,Latin America & Caribbean
+HND,Honduras,73.80304878,3.001,8097688,Latin America & Caribbean
+HTI,Haiti,63.05885366,3.148,10317461,Latin America & Caribbean
+JAM,Jamaica,73.46892683,2.26,2714734,Latin America & Caribbean
+LCA,St. Lucia,74.79195122,1.912,182273,Latin America & Caribbean
+MAF,St. Martin (French part),79.17073171,1.81,31264,Latin America & Caribbean
+MEX,Mexico,77.35402439,2.185,122332399,Latin America & Caribbean
+NIC,Nicaragua,74.78817073,2.498,6080478,Latin America & Caribbean
+PAN,Panama,77.57895122,2.466,3864170,Latin America & Caribbean
+PER,Peru,74.81460976,2.417,30375603,Latin America & Caribbean
+PRI,Puerto Rico,78.71119512,1.636,3595839,Latin America & Caribbean
+PRY,Paraguay,72.2734878,2.864,6802295,Latin America & Caribbean
+SLV,El Salvador,72.33892683,2.184,6340454,Latin America & Caribbean
+SUR,Suriname,71.03163415,2.268,539276,Latin America & Caribbean
+TTO,Trinidad and Tobago,69.92521951,1.797,1341151,Latin America & Caribbean
+URY,Uruguay,77.05141463,2.046,3407062,Latin America & Caribbean
+VCT,St. Vincent and the Grenadines,72.50097561,1.997,109373,Latin America & Caribbean
+VEN,"Venezuela, RB",74.64309756,2.39,30405207,Latin America & Caribbean
+VIR,Virgin Islands (U.S.),79.62439024,1.77,104737,Latin America & Caribbean

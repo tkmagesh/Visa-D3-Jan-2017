@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+</head>
+
+<body>
+     <script src="d3.js"></script>
+    <script src="d3-selection-multi.js"></script>
+    <script>
+        var svg = d3.select('body')
+            .append('svg')
+            .attrs({
+                width: 450,
+                height: 450
+            });
+        var label = svg.append('text')
+            .attr('x', 10)
+            .attr('y', 30);
+
+        svg.on('mousemove', function () {
+            var position = d3.mouse(svg.node());
+            label.text('X=' + position[0] + ' , Y=' + position[1]);
+        });
+    </script>
+</body>
+</html>
